@@ -1,10 +1,12 @@
-import pyxel
 import random
+
+import pyxel
 
 WIDTH, HEIGHT = 160, 120
 LANES = [40, 72, 104, 136]
 CAT_Y = HEIGHT - 24
 MAX_LIVES = 3
+
 
 class CafeAuLaitGame:
     def reset(self):
@@ -19,9 +21,9 @@ class CafeAuLaitGame:
     def __init__(self):
         pyxel.init(WIDTH, HEIGHT, title="カフェオレキャットの豆キャッチ！")
 
-        pyxel.image(0).load(0, 0, "../assets/img/cat.png")
-        pyxel.image(0).load(16, 0, "../assets/img/bean.png")
-        pyxel.image(0).load(32, 0, "../assets/img/obstacle.png")
+        pyxel.image(0).load(0, 0, "./cat.png")
+        pyxel.image(0).load(16, 0, "./bean.png")
+        pyxel.image(0).load(32, 0, "./obstacle.png")
 
         self.reset()
         pyxel.run(self.update, self.draw)
@@ -67,8 +69,7 @@ class CafeAuLaitGame:
         def rects_intersect(r1, r2):
             x1, y1, w1, h1 = r1
             x2, y2, w2, h2 = r2
-            return (x1 < x2 + w2 and x1 + w1 > x2 and
-                    y1 < y2 + h2 and y1 + h1 > y2)
+            return x1 < x2 + w2 and x1 + w1 > x2 and y1 < y2 + h2 and y1 + h1 > y2
 
         for b in self.beans[:]:
             bean_x = LANES[b[0]]
@@ -116,7 +117,13 @@ class CafeAuLaitGame:
         # ゲームオーバー
         if self.game_over:
             pyxel.text(WIDTH // 2 - 40, HEIGHT // 2, "GAME OVER", 8)
-            pyxel.text(WIDTH // 2 - 70, HEIGHT // 2 + 10, "Click to Restart", pyxel.frame_count % 16)
+            pyxel.text(
+                WIDTH // 2 - 70,
+                HEIGHT // 2 + 10,
+                "Click to Restart",
+                pyxel.frame_count % 16,
+            )
+
 
 if __name__ == "__main__":
     CafeAuLaitGame()
